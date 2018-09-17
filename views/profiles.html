@@ -1,0 +1,128 @@
+<div class="pure-u-1-2 scroll">
+  <!-- Filter form top bar -->
+  <div class="pure-g">
+    <form class="pure-form">
+      <fieldset>
+        <input ng-model="$storage.location.name" id="location" type="text" placeholder="Location">
+        <select ng-model='view' ng-change=refresh()>
+            <option value="thumbnails">Thumbnails</option>
+            <option value="map" selected>Map</option>
+          </select>
+      </fieldset>
+      <fieldset>
+          Age (
+          <input ng-model="$storage.filters.ageMinimum" ng-change="refresh()"
+          class="small-input" size="2" type="number" min="18" max="99"> & 
+          <input ng-model="$storage.filters.ageMaximum" ng-change="refresh()"
+          class="small-input" size="2" type="number" min="18" max="99"> )
+          <select ng-model='$storage.filters.position' ng-options="o for o in sexualPositions"
+          ng-change="changeFilter('position')"></select>
+        <label><input type="checkbox" ng-model="$storage.filters.onlineOnly" ng-change="refresh()"> Online</label> 
+        &nbsp; <label><input type="checkbox" ng-model="$storage.filters.photoOnly" ng-change="refresh()"> Photo only</label>
+      </fieldset>
+      <fieldset id="managed-fields" ng-if="managedFields">
+        <select ng-model='$storage.filters.lookingFor' ng-options="option.fieldId as option.name for option in managedFields.lookingFor" ng-change="changeFilter('lookingFor')">
+          <option value="">Looking For Any</option>
+        </select>
+        <select ng-model='$storage.filters.grindrTribe' ng-options="option.fieldId as option.name for option in managedFields.grindrTribes" ng-change="changeFilter('grindrTribe')">
+          <option value="">Any Tribe</option>
+        </select>
+        <select ng-model='$storage.filters.ethnicity' ng-options="option.fieldId as option.name for option in managedFields.ethnicity" ng-change="changeFilter('ethnicity')">
+          <option value="">Any Ethnicity</option>
+        </select>
+        <select ng-model='$storage.filters.bodyType' ng-options="option.fieldId as option.name for option in managedFields.bodyType" ng-change="changeFilter('bodyType')">
+          <option value="">Any Body Type</option>
+        </select>
+      </fieldset>
+    </form>
+  </div>
+
+  <div class="pure-g" >
+    <!-- Thumbnail grid-->
+    <a ng-if="view == 'thumbnails' && ($storage.filters.photoOnly == '' || ($storage.filters.photoOnly !== '' && profile.profileImageMediaHash != ''))"
+    ng-repeat="profile in nearbyProfiles" style="position:relative;" class="pure-u-1-5" ng-click="open(profile.profileId)">
+      <img class="pure-img thumbnail" ng-show="profile.profileImageMediaHash"
+           ng-src="http://cdns.grindr.com/images/thumb/320x320/{{profile.profileImageMediaHash}}"/>
+		  <div class="caption textoverlay">{{profile.displayName}}</div>				
+    </a>
+
+    <!-- Map -->
+    <ng-map ng-if="view == 'map'" center="[{{$storage.location.lat}},{{$storage.location.lon}}]" zoom="10" id='map'>
+      <marker ng-repeat="(id, location) in locations"
+              position="[{{location.lat}},{{location.lon}}]"
+              id="{{id}}"
+              on-click="markerClicked($event)">
+      </marker>
+    </ng-map>
+  </div>
+</div>
+
+
+<div class="pure-u-1-2 scroll">
+  <div id="profile" ng-show="profile" emoji>
+    <a ng-show="profile.profileImageMediaHash" href="http://cdns.grindr.com/images/profile/1024x1024/{{profile.profileImageMediaHash}}" target="_blank">
+      <img class="pure-img" id="profile-pic"
+         high-res-src="http://cdns.grindr.com/images/profile/1024x1024/{{profile.profileImageMediaHash}}"
+         ng-src="http://cdns.grindr.com/images/thumb/320x320/{{profile.profileImageMediaHash}}"/>
+    </a>
+    <h2 id="displayName">{{profile.displayName}}</h2>
+    <h2 ng-hide="profile.displayName" id="displayName">{{profile.profileId}}</h2>
+    <h3 ng-show="profile.headline" id="headline">{{profile.headline}}</h3>
+    
+    <p ng-show="profile.aboutMe">{{profile.aboutMe}}</p>
+
+    <p class="icons">
+      <a ng-show="profile.socialNetworks" ng-repeat="(name, info) in profile.socialNetworks" target="_blank" href="https://{{name}}.com/{{info.userId}}/">
+        <i class="fa fa-{{name}}"></i>
+      </a>
+      <a ng-href="#/chat/{{profile.profileId}}">
+        <i class="fa fa-comments"></i>
+      </a>
+      <a ng-show="profile.distance" ng-click="pinpoint(profile.profileId)">
+          <i ng-show="isNearbyProfile(profile.profileId) && (!pinpointing)" class="fa fa-globe"></i>
+          <img ng-show="pinpointing" src="img/spin.gif" width="14"> &nbsp; {{profile.distance | mToLocalUnit}} away
+      </a>
+    </p>
+
+    <p ng-show="profile.lookingFor">Looking for : 
+        <span ng-show="profile.lookingFor.indexOf(1) != -1">Nothing, </span>
+        <span ng-show="profile.lookingFor.indexOf(2) != -1">Friend, </span>
+        <span ng-show="profile.lookingFor.indexOf(3) != -1">Chat, </span>
+        <span ng-show="profile.lookingFor.indexOf(4) != -1">Relation, </span>
+        <span ng-show="profile.lookingFor.indexOf(5) != -1">Meeting, </span>
+        <span ng-show="profile.lookingFor.indexOf(6) != -1">Networking, </span>
+        <span ng-show="profile.lookingFor.indexOf(7) != -1">Right Now </span>
+    </p>
+
+    <table ng-show="profile.height || profile.weight || profile.age || profile.sexualPosition || profile.seen || lastTimeActive" class="pure-table">
+      <thead>
+        <tr>
+          <th ng-show="profile.age"><i class="fa fa-birthday-cake"></i></th>
+          <th ng-show="profile.height"><i class="fa fa-arrows-v"></i></th>
+          <th ng-show="profile.weight"><i class="fa fa-balance-scale"></i></th>
+          <th ng-show="profile.seen || lastTimeActive"><i class="fa fa-clock-o"></i></th>
+          <th ng-show="profile.sexualPosition"><i class="fa fa-american-sign-language-interpreting"></i></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td ng-show="profile.age">{{profile.age}}</td>
+          <td ng-show="profile.height">{{profile.height | cmToLocalUnit}}</td>
+          <td ng-show="profile.weight">{{profile.weight | gramToLocalUnit}}</td>
+          <th ng-show="profile.seen || lastTimeActive">{{profile.seen | lastTimeActive}}</th>
+          <td ng-show="profile.sexualPosition">{{sexualPositions[profile.sexualPosition]}}
+        </tr>
+      </tbody>
+    </table>
+
+    <p ng-show="authenticated" class="icons">
+      <a ng-click="block()">
+        <i class="fa fa-ban fa-2x"></i>
+      </a>
+      <a ng-click="save(profile.profileId)">
+        <i class="fa fa-heart-o fa-2x"></i>
+      </a>
+    </p>
+    <br>
+  </div>
+</div>

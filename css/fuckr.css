@@ -1,0 +1,253 @@
+@font-face {
+    font-family: OpenSansEmoji;
+    src: url(font/OpenSansEmoji.ttf) format("opentype");
+}
+
+body {
+    background-color: #191818;
+    color: white;
+    font-family: 'FontAwesome', Arial;
+}
+
+a, legend {
+    color: white !important;
+    text-decoration: none;
+}
+aside {
+    margin: 1.5em 0;
+}
+
+.icons a i{
+    padding : 0.5em;
+    border: 1px solid white;
+}
+.icons a i:hover{
+    background-color: #444444;
+}
+
+#icon-bar {
+    height: 7em;
+    letter-spacing: 1em;
+    text-align: center;
+}
+
+iframe {
+    height: 500px !important;
+    margin-top: 4em;
+    border: none;
+}
+
+html, body, #container {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+.scroll {
+    height: calc(100% - 5em);
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.pure-form {
+    font-size: 0.9em;
+    letter-spacing: normal;
+    text-align: center;
+}
+.pure-form fieldset {
+  padding-left: 10px;
+  text-align:center;
+}
+th {
+    text-align:center;
+}
+.small-input { /* pure-input-1-* behaves weirdly */
+    width: 3.5em !important;
+}
+.thumbnail {
+  width: 10vw;
+  height: 10vw;
+}
+a,.thumbnail {
+    cursor: pointer;
+}
+
+#map {
+  width: 100%;
+  height: calc(100vh - 14em);
+  letter-spacing: normal;
+}
+
+#profile {
+    padding: 0 5px;
+    text-align: center;
+}
+#profile table, #profile img {
+    margin-left: auto;
+    margin-right: auto;
+}
+#profile #profile-pic {
+    height: auto;
+    width: auto;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+#managed-fields {
+  font-size: 0.85em;
+}
+
+.conversation {
+    border-bottom: 1px solid #ddd;
+    padding: 0;
+    margin: 0 5px;
+    height: 5.5em !important;
+}
+.unread {
+    background-color: #666666 !important;
+}
+
+.conversation .thumbnail {
+    float: left;
+    height: 5.5em;
+    width: 5.5em;
+}
+.conversation .lastMessages {
+    width: calc(100% - 5.5em);
+    float: right;
+    text-align: center;
+    letter-spacing: normal;
+}
+
+.button-error, .button-secondary, .button-warning {
+    color: white;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+.button-error {
+    background: rgb(202, 60, 60);
+}
+.button-warning {
+    background: rgb(223, 117, 20);
+}
+.button-secondary {
+    background: rgb(66, 184, 221);
+}
+.sent-image {
+    max-height: 200px !important;
+}
+#upload-image {
+    display: none !important;
+}
+
+
+/* from http://codepen.io/samuelkraft/pen/Farhl */
+#bubbles {
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 1.1em;
+    font-weight: normal;
+    padding: 0 14px 0 14px;
+}
+#bubbles div {
+    max-width: 51%;
+    word-wrap: break-word;
+    margin-bottom: 10px;
+    line-height: 20px;
+}
+
+.clear {
+    clear: both;
+}
+
+.from-me {
+    position: relative;
+    padding: 10px 20px;
+    color: white;
+    background: #FF0066;
+    border-radius: 25px;
+    float: right;
+}
+.from-me:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    bottom: -2px;
+    right: -7px;
+    height: 20px;
+    border-right: 20px solid #FF0066;
+    border-bottom-left-radius: 16px 14px;
+    -webkit-transform: translate(0, -2px);
+}
+.from-me:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    bottom: -2px;
+    right: -56px;
+    width: 26px;
+    height: 20px;
+    background: black;
+    border-bottom-left-radius: 10px;
+    -webkit-transform: translate(-30px, -2px);
+}
+
+.from-them {
+    position: relative;
+    padding: 10px 20px;
+    background: #FFE500;
+    border-radius: 25px;
+    color: black;
+    float: left;
+}
+.from-them:before {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    bottom: -2px;
+    left: -7px;
+    height: 20px;
+    border-left: 20px solid #FFE500;
+    border-bottom-right-radius: 16px 14px;
+    -webkit-transform: translate(0, -2px);
+}
+.from-them:after {
+    content: "";
+    position: absolute;
+    z-index: 3;
+    bottom: -2px;
+    left: 4px;
+    width: 26px;
+    height: 20px;
+    background: black;
+    border-bottom-right-radius: 10px;
+    -webkit-transform: translate(-30px, -2px);
+}
+
+.textoverlay{
+	top:0;
+	left:0;
+	position:absolute;
+	font-size:12px;
+	visibility:hidden;
+  cursor: pointer;
+}
+
+a:hover .textoverlay{
+	font-size:15px;
+	visibility:visible;
+	background-color: #000;
+	font-weight: bold;
+}
+
+.current-image {
+  width: 70px;
+  height: 70px;
+}
+
+select#stealthyColors{
+    width: calc(100% - 1em);
+}
+
+form#settings{
+    margin:0 8%;
+}

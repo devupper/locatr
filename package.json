@@ -1,0 +1,23 @@
+{
+  "name": "Fuckr",
+  "version": "3.31.1",
+  "main": "index.html",
+  "window": {
+    "title": "Fuckr",
+    "resizable": true,
+    "position": "center",
+    "width": 1024,
+    "height": 768,
+    "toolbar": true
+  },
+  "webkit": {
+    "page-cache": true
+  },
+  "scripts": {
+    "build": "cat fuckr.coffee services/*.coffee controllers/*.coffee directives.coffee | coffee -cbs > fuckr.js",
+    "run": "npm run build && nw ."
+  },
+  "chromium-args": "--ignore-certificate-errors --disable-setuid-sandbox --enable-gcm --enable-logging --remote-debugging-port=9999",
+  "user-agent": "Grindr3/3.31.1.201806042349 (201806042349; iPhone; iOS 11.4.1)",
+  "no-edit-menu": false
+}

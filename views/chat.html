@@ -1,0 +1,59 @@
+<div class="pure-u-1-2 scroll">
+  <div ng-repeat="conversation in lastestConversations"
+       ng-class="['pure-g', 'conversation', conversation.unread ? 'unread' : '']" >
+    <a ng-href="#/profiles/{{conversation.id}}">
+      <img non-draggable class="thumbnail" ng-src="http://cdns.grindr.com/images/thumb/320x320/{{conversation.thumbnail}}">
+    </a>
+    <div class="lastMessages" ng-click="open(conversation.id)">
+      {{lastMessage = conversation.messages[conversation.messages.length - 1]; ""}}
+      <p>{{lastMessage.text.slice(0, 100) || (lastMessage.image ? '***IMAGE***' : '***LOCATION')}}</p>
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<div ng-show="conversationId" scroll-down-on-new-conversation class="pure-u-1-2 scroll">
+
+  <div id="bubbles" emoji>
+    <div ng-repeat-start="message in conversation.messages"
+         class="{{message.fromMe ? 'from-me' : 'from-them'}}"
+         title="{{message.timestamp ? (message.timestamp | date:'medium') : ''}}">
+         <p ng-if="message.text">{{message.text}}</p>
+      <a ng-if="message.location" target="_blank"
+         ng-href="https://maps.google.com/?q=loc:{{message.location.lat}},{{message.location.lon}}">*LOCATION*</a> 
+      <img class="pure-img" ng-if="message.image" src="img/bigspin.gif"
+           high-res-src="http://cdns.grindr.com/grindr/chat/{{message.image}}">
+    </div>
+    <div ng-repeat-end class="clear"></div>
+  </div>
+
+  <form class="pure-form" ng-hide="chatError || connectionError">
+    <fieldset class="pure-group">
+      <textarea ng-model="message" on-enter="sendText()"
+                class="pure-input-1" rows="5" placeholder=""></textarea>
+    </fieldset>
+
+    <p class="icons">
+      <i class="fa fa-paper-plane fa-2x" title="Send message" ng-click="sendText()"></i>
+      <i class="fa fa-picture-o fa-2x" title="Send picture" ng-click="showSentImages()"></i>
+      <i class="fa fa-map-pin fa-2x" title="Send location" ng-click="sendLocation()"></i>
+      <i class="fa fa-clipboard fa-2x" title="Copy to clipboard" ng-click="copyToClipboard()"></i>
+      <i class="fa fa-trash fa-2x" title="Delete" ng-click="delete()"></i>
+      <i class="fa fa-ban fa-2x" title="Block" ng-click="block()()"></i>
+    </p>
+  </form>
+
+  <div ng-show="sentImages" class="pure-g">
+    <img ng-repeat="imageHash in sentImages"
+         ng-src="http://cdns.grindr.com/grindr/chat/{{imageHash}}" ng-click='sendImage(imageHash)' class="pure-u-1-3 pure-img sent-image">
+    <div class="pure-u-1-1 icons">
+      <label ng-hide="uploading" for="upload-image">
+        <i class="fa fa-plus fa-2x"></i>
+      </label>
+      <img ng-show="uploading" src="img/spin.gif">
+      <input type="file" accept="image/jpg,image/jpeg" file-model="imageFile" id="upload-image">
+      <i ng-show="sentImages.length > 0" ng-click="clearSentImages()" class="fa fa-trash fa-2x"></i>
+    </div>
+  </div>
+</div>

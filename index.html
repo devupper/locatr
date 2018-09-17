@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuckr</title>
+
+    <link rel="stylesheet" href="css/pure-min.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/fuckr.css">
+
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+    <script src="vendor/underscore-min.js"></script>
+    <script src="vendor/math.min.js"></script>
+    <script src="vendor/angular.min.js"></script>
+    <script src="vendor/angular-route.min.js"></script>
+    <script src="vendor/ngStorage.min.js"></script>
+    <script src="vendor/ng-map.min.js"></script>
+    <script src="vendor/latlon-geohash.js"></script>
+    <script src="fuckr.js"></script>
+  </head>
+
+
+  <body ng-app="fuckr">
+    <audio id="notification" src="audio/thegertz_not.wav" preload="auto"></audio>
+    <div ng-if="authenticated" id="icon-bar" class="pure-g">
+      <div class="pure-u-1">
+        <p class="icons">
+          <a non-draggable href="#/profiles/">
+            <i class="fa fa-th-large fa-xl"></i>
+          </a>
+          <!--a ng-href="#/profiles/" ng-change="view('map')">
+            <i class="fa fa-street-view fa-xl"></i>
+          </a-->
+          <a non-draggable ng-href="#/chat/">
+            <i class="fa fa-envelope fa-xl"></i>
+          </a>
+          <a non-draggable ng-href="#/settings">
+            <i class="fa fa-gear fa-xl"></i>
+          </a>
+          <a non-draggable ng-click="$emit('logout')">
+            <i class="fa fa-sign-out fa-xl"></i>
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="pure-g" id="container" ng-view>
+    </div>
+  </body>
+</html>

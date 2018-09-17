@@ -1,0 +1,29 @@
+<div class="pure-u-1-3"></div>
+
+<div class="pure-u-1-3">
+  <aside>
+    <p>Warning: Grindr™ won't let you use the same account on two different devices <b>at the same time</b>.</p>
+  </aside>
+  <form id="login" class="pure-form pure-form-stacked">
+    <fieldset>
+      <legend>Authentication</legend>
+
+      <label for="email">Email</label>
+      <input class="pure-input-1" ng-model="$storage.email" id="email" type="email" placeholder="Email">
+
+      <label for="password">Password</label>
+      <input class="pure-input-1" ng-model="$storage.password" id="password" type="password" placeholder="Password">
+
+      <button ng-hide="logging" ng-disabled="!($storage.email && $storage.password)" ng-click="login()" type="submit" class="pure-button pure-button-primary">Log in</button>
+      <img ng-show="logging" src="img/spin.gif">
+
+      <label for="dob">Date of Birth</label>
+      <input class="pure-input-1" ng-model="dateOfBirth" id="dob" type="date">
+      <button ng-hide="logging" ng-disabled="!($storage.email && $storage.password && dateOfBirth)" ng-click="signup()" type="submit" class="pure-button pure-button-primary">Sign up</button>
+      <img ng-show="logging" src="img/spin.gif">
+      
+    </fieldset>
+  </form>
+</div>
+
+<div class="pure-u-1-3"></div>
