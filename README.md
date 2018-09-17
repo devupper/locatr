@@ -1,6 +1,5 @@
-#[Fuckr](http://fuckr.me/): unofficial client
-
-Fuckr is an unofficial client for desktop built with Node-Webkit, AngularJS and a modified version of [jacasr](https://github.com/tdebarochez/jacasr).
+#Client
+    Desktop client built with Node-Webkit, AngularJS and a modified version of [jacasr](https://github.com/tdebarochez/jacasr).
 
 ##Run
     Install node-webkit >= 0.12 (eg. `npm install -g nw`) and run `nw fuckr`
@@ -12,10 +11,9 @@ Fuckr is an unofficial client for desktop built with Node-Webkit, AngularJS and 
     npm run package
 
 ##API
-All interactions./services and summarized in this (unofficial-api-documentation.md).
-If there's anything else you want to know, you can easily analyse the HTTPS part with [mitmproxy](http://mitmproxy.org/)'s [regular proxy](https://mitmproxy.org/doc/modes.html) mode and the XMPP part with just Wireshark (+ Ettercap).
+    All interactions./services and summarized in this (unofficial-api-documentation.md).
+    If there's anything else you want to know, you can easily analyse the HTTPS part with [mitmproxy](http://mitmproxy.org/)'s [regular proxy](https://mitmproxy.org/doc/modes.html) mode and the XMPP part with just Wireshark (+ Ettercap).
 
 ##Credits
-- Logo: [Reyson Morales](http://reyson-morales.deviantart.com/)
 - Contributions: @victorgrego, @RobbieTechie and @shyrat
 - Download Page: originally copied from [Tinder++](https://github.com/mfkp/tinderplusplus)
